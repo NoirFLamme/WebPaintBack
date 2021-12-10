@@ -52,7 +52,7 @@ public class drawingcompnents{
 
 		Undone.add(Shapeslist.get(Shapeslist.size() - 1));
 		Shapeslist.remove(Shapeslist.size() - 1);
-		return new FileBuilder(Shapeslist).jsonBuilder();
+		return new FileBuilder().jsonBuilder(Shapeslist);
 
 	}
 
@@ -61,19 +61,17 @@ public class drawingcompnents{
 
 		Shapeslist.add(Undone.get(Undone.size() - 1));
 		Undone.remove(Undone.size() - 1);
-		return new FileBuilder(Shapeslist).jsonBuilder();
+		return new FileBuilder().jsonBuilder(Shapeslist);
 
 	}
 
 	@GetMapping("/Save")
-	void save(String path, String name, String type) throws JSONException {
-		FileBuilder builder = new FileBuilder(Shapeslist);
+	void save(@RequestParam String path, @RequestParam String name, @RequestParam String type) throws JSONException {
+		FileBuilder builder = new FileBuilder();
 
-		JSONObject saveJ = builder.jsonBuilder();
+		JSONObject saveJ = builder.jsonBuilder(Shapeslist);
 
-		String saveX = builder.xmlBuilder();
-
-
+		String saveX = builder.xmlBuilder(Shapeslist);
 
 
 		FileWriter file = null;
@@ -108,6 +106,7 @@ public class drawingcompnents{
 
 //		@GetMapping("/Load")
 //		ArrayList<Shape> load(String path, String name) {
+//
 //			JSONParser jsonParser = new JSONParser();
 //
 //			try (FileReader reader = new FileReader("employees.json"))
