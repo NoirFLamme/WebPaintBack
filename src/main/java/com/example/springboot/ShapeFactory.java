@@ -1,7 +1,5 @@
 package com.example.springboot;
 
-import org.springframework.web.bind.annotation.RequestParam;
-
 public class ShapeFactory {
     public Shape create(Object sentobject)
     {
@@ -12,75 +10,69 @@ public class ShapeFactory {
         {
             return null;
         }
-        else if (sentobj.name.equalsIgnoreCase("circle"))
+        else if (sentobj.type.equalsIgnoreCase("circle"))
         {
             Circle circle = new Circle();
-            sentobj = (Circle) sentobj;
-            circle.name=sentobj.name;
-            circle.x= ((Circle) sentobj).x;
-            circle.y=((Circle) sentobj).y;
-            circle.radius=((Circle) sentobj).radius;
-            circle.color=sentobj.color;
-            circle.isDraw=sentobj.isDraw;
-            circle.isFilled=sentobj.isFilled;
+            circle.type = sentobj.type;
+            circle.position = sentobj.position;
+            circle.radius = ((Circle) sentobj).radius;
+            circle.color = sentobj.color;
+            circle.id = sentobj.id;
+            circle.isSelected = sentobj.isSelected;
+
             return circle;
-
-
         }
-        else if (sentobj.name.equalsIgnoreCase("rectangle"))
+        else if (sentobj.type.equalsIgnoreCase("rectangle"))
         {
             Rectangle rect = new Rectangle();
-            sentobj = (Rectangle) sentobj;
-            rect.name=sentobj.name;
-            rect.rX= ((Rectangle) sentobj).rX;
-            rect.rY= ((Rectangle) sentobj).rY;
-            rect.rWidth= ((Rectangle) sentobj).rWidth;
-            rect.rHight= ((Rectangle) sentobj).rHight;
-            rect.color=sentobj.color;
-            rect.isDraw=sentobj.isDraw;
-            rect.isFilled=sentobj.isFilled;
+            rect.type = sentobj.type;
+            rect.width = ((Rectangle) sentobj).width;
+            rect.height = ((Rectangle) sentobj).height;
+            rect.color = sentobj.color;
+            rect.position = sentobj.position;
+            rect.isSelected = sentobj.isSelected;
+            rect.id = sentobj.id;
+
+            return rect;
         }
-        else if (sentobj.name.equalsIgnoreCase("triangle"))
+        else if (sentobj.type.equalsIgnoreCase("polygon"))
         {
-            Triangle triangle = new Triangle();
-            sentobj = (Triangle) sentobj;
-            triangle.name=sentobj.name;
-            triangle.x1= ((Triangle) sentobj).x1;
-            triangle.x2= ((Triangle) sentobj).x2;
-            triangle.x3= ((Triangle) sentobj).x3;
-            triangle.y1= ((Triangle) sentobj).y1;
-            triangle.y2= ((Triangle) sentobj).y2;
-            triangle.y3= ((Triangle) sentobj).y3;
-            triangle.color=sentobj.color;
-            triangle.isDraw=sentobj.isDraw;
-            triangle.isFilled=sentobj.isFilled;
-            return triangle;
+            Polygon poly = new Polygon();
+            poly.type = sentobj.type;
+            poly.points = ((Polygon) sentobj).points;
+            poly.color = sentobj.color;
+            poly.position = sentobj.position;
+            poly.isSelected = sentobj.isSelected;
+            poly.id = sentobj.id;
+
+            return poly;
         }
-        else if (sentobj.name.equalsIgnoreCase("elipse"))
+        else if (sentobj.type.equalsIgnoreCase("elipse"))
         {
             Elipse elipse = new Elipse();
-            sentobj = (Elipse) sentobj;
-            elipse.name=sentobj.name;
-            elipse.cX= ((Elipse) sentobj).cX;
-            elipse.cY= ((Elipse) sentobj).cY;
-            elipse.cWidth= ((Elipse) sentobj).cWidth;
-            elipse.cHight= ((Elipse) sentobj).cHight;
-            elipse.color=sentobj.color;
-            elipse.isDraw=sentobj.isDraw;
-            elipse.isFilled=sentobj.isFilled;
+            elipse.type = sentobj.type;
+            elipse.radiusx = ((Elipse) sentobj).radiusx;
+            elipse.radiusy = ((Elipse) sentobj).radiusy;
+            elipse.color = sentobj.color;
+            elipse.isSelected = sentobj.isSelected;
+            elipse.id = sentobj.id;
+            elipse.position = sentobj.position;
+
             return elipse;
         }
-        else if (sentobj.name.equalsIgnoreCase("line")) {
+        else if (sentobj.type.equalsIgnoreCase("line"))
+        {
             Line line = new Line();
-            sentobj = (Line) sentobj;
-            line.name = sentobj.name;
+            line.type = sentobj.type;
             line.x1 = ((Line) sentobj).x1;
             line.x2 = ((Line) sentobj).x2;
             line.y1 = ((Line) sentobj).y1;
             line.y2 = ((Line) sentobj).y2;
             line.color = sentobj.color;
-            line.isDraw = sentobj.isDraw;
-            line.isFilled = sentobj.isFilled;
+            line.position = sentobj.position;
+            line.isSelected = sentobj.isSelected;
+            line.id = sentobj.id;
+
             return line;
         }
         return null;

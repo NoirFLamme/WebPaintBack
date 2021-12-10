@@ -1,61 +1,69 @@
 package com.example.springboot;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class Shape {
 
+	int id;
+	protected String type;
 	protected String color;
-	protected String name;
-	protected boolean isFilled;
-	protected boolean isDraw;
+	protected Point position;
+	protected boolean isSelected;
 
 	public Shape() {
+		id = 0;
+		type = null;
 		color = null;
-		name = null;
-		isFilled = true;
-		isDraw = true;
+		position.x = 0;
+		position.y =0;
+		isSelected = true;
 	}
 
-	public boolean isDraw() {
-		return isDraw;
+	public int getId() {
+		return id;
 	}
 
-	public void setDraw(boolean isDraw) {
-		this.isDraw = isDraw;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public boolean isFilled() {
-		return isFilled;
+	public String getType() {
+		return type;
 	}
 
-	public void setFilled(boolean isFilled) {
-		this.isFilled = isFilled;
-	}
-
-	public void setColor(String c) {
-		color = c;
+	public void setType(String t) {
+		this.type = t;
 	}
 
 	public String getColor() {
 		return color;
 	}
 
-	public String getName() {
-		return name;
+	public void setColor(String color) {
+		this.color = color;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public Point getPosition() {
+		return position;
+	}
+
+	public void setPosition(Point position) {
+		this.position = position;
+	}
+
+	public boolean isSelected() {
+		return isSelected;
+	}
+
+	public void setSelected(boolean selected) {
+		isSelected = selected;
 	}
 
 	abstract Shape select( ArrayList<Shape> Shapeslist, int i);
-
 	abstract void move( Shape selectedShape);
 	abstract void copy( Shape selectedShape);
 	abstract void resize(Shape selectedShape);
-
-
-
 
 }
 

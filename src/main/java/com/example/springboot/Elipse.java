@@ -3,47 +3,29 @@ package com.example.springboot;
 import java.util.ArrayList;
 
 public class Elipse extends Shape {
-	protected int cX, cY, cWidth, cHight;
+	protected int radiusx, radiusy;
 	
 
 	public Elipse() {
 		super();
-		cX = 0;
-		cY = 0;
-		cWidth = 0;
-		cHight = 0;
+		radiusx = 0;
+		radiusy = 0;
 	}
 
-	public int getcX() {
-		return cX;
+	public int getRadiusx() {
+		return radiusx;
 	}
 
-	public void setcX(int cX) {
-		this.cX = cX;
+	public void setRadiusx(int radiusx) {
+		this.radiusx = radiusx;
 	}
 
-	public int getcY() {
-		return cY;
+	public int getRadiusy() {
+		return radiusy;
 	}
 
-	public void setcY(int cY) {
-		this.cY = cY;
-	}
-
-	public int getcWidth() {
-		return cWidth;
-	}
-
-	public void setcWidth(int cWidth) {
-		this.cWidth = cWidth;
-	}
-
-	public int getcHight() {
-		return cHight;
-	}
-
-	public void setcHight(int cHight) {
-		this.cHight = cHight;
+	public void setRadiusy(int radiusy) {
+		this.radiusy = radiusy;
 	}
 
 	@Override

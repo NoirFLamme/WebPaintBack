@@ -3,30 +3,12 @@ package com.example.springboot;
 import java.util.ArrayList;
 
 public class Circle extends Shape{
-	protected int x, y, radius;
+	protected int radius;
 
 	public Circle() {
 		super();
-		x = y = radius = 0;
+		radius = 0;
 	}
-
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
-
-
 
 	public int getRadius() {
 		return radius;
