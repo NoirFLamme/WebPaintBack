@@ -1,4 +1,6 @@
 package com.example.springboot;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.apache.tomcat.util.json.JSONParser;
 import org.json.JSONException;
@@ -31,39 +33,13 @@ public class drawingcompnents{
 
 
 
-	@GetMapping("/circle")
-	void createcircle(@RequestBody Object sentobj) {
+	@GetMapping("/create")
+	void createShape(@RequestBody JSONObject sentobj) throws JsonProcessingException {
 
+		ObjectMapper objectMapper = new ObjectMapper();
+		Object jsontoObject = objectMapper.readValue(sentobj.toString(),Object.class);
 		System.out.println("circle");
-		Shapeslist.add(factory.create(sentobj));
-
-	}
-	@GetMapping("/Elipse")
-	void createelipse(@RequestParam Object sentobj) {
-
-		System.out.println("elipse");
-		Shapeslist.add(factory.create(sentobj));
-
-	}
-	@GetMapping("/Rectangle")
-	void createrectangle(@RequestParam Object sentobj) {
-
-		System.out.println("rect");
-		Shapeslist.add(factory.create(sentobj));
-
-	}
-	@GetMapping("/Triangle")
-	void createtriangle(@RequestParam Object sentobj) {
-
-		System.out.println("triangle");
-		Shapeslist.add(factory.create(sentobj));
-
-	}
-	@GetMapping("/Line")
-	void createLine(@RequestParam Object sentobj) {
-
-		System.out.println("line");
-		Shapeslist.add(factory.create(sentobj));
+		Shapeslist.add(factory.create(jsontoObject));
 
 	}
 
