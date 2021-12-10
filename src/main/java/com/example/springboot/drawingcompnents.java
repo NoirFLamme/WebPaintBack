@@ -3,6 +3,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.apache.tomcat.util.json.JSONParser;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,12 +32,14 @@ public class drawingcompnents{
 	ArrayList<Shape> Undone;
 	ShapeFactory factory = new ShapeFactory();
 	FileBuilder builder ;
+	JSONArray ShapesJson = new JSONArray();
 
 
 
 	@GetMapping("/create")
 	void createShape(@RequestBody JSONObject sentobj) throws JsonProcessingException {
 
+		ShapesJson.put(sentobj);
 		ObjectMapper objectMapper = new ObjectMapper();
 		Object jsontoObject = objectMapper.readValue(sentobj.toString(),Object.class);
 		System.out.println(sentobj);
@@ -45,7 +48,7 @@ public class drawingcompnents{
 	}
 
 	@GetMapping("/Undo")
-	JSONObject undo() {
+	JSONObject undo() throws JSONException {
 
 		Undone.add(Shapeslist.get(Shapeslist.size() - 1));
 		Shapeslist.remove(Shapeslist.size() - 1);
@@ -54,7 +57,7 @@ public class drawingcompnents{
 	}
 
 	@GetMapping("/Redo")
-	JSONObject redo() {
+	JSONObject redo() throws JSONException {
 
 		Shapeslist.add(Undone.get(Undone.size() - 1));
 		Undone.remove(Undone.size() - 1);
@@ -63,15 +66,29 @@ public class drawingcompnents{
 	}
 
 	@GetMapping("/Save")
-	void save(String path, String name) {
-		FileBuilder jsonbuilder = new FileBuilder(Shapeslist);
-		JSONObject save = jsonbuilder.jsonBuilder();
+	void save(String path, String name, String type) throws JSONException {
+		FileBuilder builder = new FileBuilder(Shapeslist);
+
+		JSONObject saveJ = builder.jsonBuilder();
+
+		String saveX = builder.xmlBuilder();
+
+
+
 
 		FileWriter file = null;
 
 		try {
-			file = new FileWriter(path + "\\" +  name +  ".txt");
-			file.write(save.toString());
+			if (type == "xml") {
+				file = new FileWriter(path + "\\" +  name +  ".xml");
+				file.write(saveX.toString());
+			}
+			else{
+				file = new FileWriter(path + "\\" +  name +  ".json");
+				file.write(saveJ.toString());
+			}
+
+
 		} catch (IOException e)
 		{
 			e.printStackTrace();
@@ -89,27 +106,27 @@ public class drawingcompnents{
 
 	}
 
-//	@GetMapping("/Load")
-//	ArrayList<Shape> load(String path, String name) {
-//		JSONParser jsonParser = new JSONParser();
+//		@GetMapping("/Load")
+//		ArrayList<Shape> load(String path, String name) {
+//			JSONParser jsonParser = new JSONParser();
 //
-//		try (FileReader reader = new FileReader("employees.json"))
-//		{
-//			//Read JSON file
-//			Shapeslist = jsonParser.parse(reader);
+//			try (FileReader reader = new FileReader("employees.json"))
+//			{
+//				//Read JSON file
+//				Shapeslist = jsonParser.parse(reader);
 //
 //
 //
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		} catch (ParseException e) {
-//			e.printStackTrace();
+//			} catch (FileNotFoundException e) {
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			} catch (ParseException e) {
+//				e.printStackTrace();
+//			}
 //		}
+//
 //	}
-
-//}
 
 
 }
