@@ -30,6 +30,7 @@ public class drawingcompnents{
 	ArrayList<Shape> Shapeslist;
 	ArrayList<Shape> Undone;
 	ShapeFactory factory = new ShapeFactory();
+	FileBuilder builder ;
 
 
 
@@ -38,26 +39,26 @@ public class drawingcompnents{
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		Object jsontoObject = objectMapper.readValue(sentobj.toString(),Object.class);
-		System.out.println("circle");
+		System.out.println(sentobj);
 		Shapeslist.add(factory.create(jsontoObject));
 
 	}
 
 	@GetMapping("/Undo")
-	ArrayList<Shape> undo() {
+	JSONObject undo() {
 
 		Undone.add(Shapeslist.get(Shapeslist.size() - 1));
 		Shapeslist.remove(Shapeslist.size() - 1);
-		return Shapeslist;
+		return new FileBuilder(Shapeslist).jsonBuilder();
 
 	}
 
 	@GetMapping("/Redo")
-	ArrayList<Shape> redo() {
+	JSONObject redo() {
 
 		Shapeslist.add(Undone.get(Undone.size() - 1));
 		Undone.remove(Undone.size() - 1);
-		return Shapeslist;
+		return new FileBuilder(Shapeslist).jsonBuilder();
 
 	}
 
