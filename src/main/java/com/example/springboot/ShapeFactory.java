@@ -3,10 +3,10 @@ package com.example.springboot;
 import com.example.springboot.shapes.*;
 
 public class ShapeFactory {
-    public Shape create(Object sentobject)
+    public Shape create(Shape sentobj)
     {
 
-        Shape sentobj = (Shape) sentobject;
+
 
         if (sentobj != null)
         {
@@ -36,7 +36,7 @@ public class ShapeFactory {
             }
             else if (sentobj.getType().equalsIgnoreCase("elipse"))
             {
-                Elipse elipse = new Elipse();
+                Elipse elipse = new Elipse(sentobj);
                 elipse.setType(sentobj.getType());
                 elipse.setPositionX(sentobj.getPositionX());
                 elipse.setPositionY(sentobj.getPositionY());

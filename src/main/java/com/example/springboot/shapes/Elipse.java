@@ -6,8 +6,8 @@ public class Elipse extends Shape {
 	protected int radiusx, radiusy;
 	
 
-	public Elipse() {
-		super();
+	public Elipse(Shape a) {
+		super(a);
 		radiusx = 0;
 		radiusy = 0;
 	}

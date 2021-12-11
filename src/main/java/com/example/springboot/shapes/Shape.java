@@ -3,7 +3,7 @@ package com.example.springboot.shapes;
 import java.awt.*;
 import java.util.ArrayList;
 
-public abstract class Shape {
+public  class Shape {
 
 	int id;
 
@@ -17,6 +17,7 @@ public abstract class Shape {
 	}
 
 	public Shape() {
+
 		id = 0;
 		type = null;
 		color = null;
@@ -25,6 +26,7 @@ public abstract class Shape {
 	}
 
 	protected String type;
+
 
 	public int getId() {
 		return id;

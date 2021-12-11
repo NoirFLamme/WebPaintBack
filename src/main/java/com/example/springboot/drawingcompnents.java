@@ -17,6 +17,7 @@ import org.json.simple.parser.JSONParser;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.Stack;
 
 //import org.springframework.boot.CommandLineRunner;
@@ -37,8 +38,8 @@ public class drawingcompnents{
 	ShapesArray ShapesA = new ShapesArray();
 
 
-	Stack<Pair> undo = new Stack<>();
-	Stack<Pair> redo = new Stack<>();
+	Stack<Pair> undo = new Stack<Pair>();
+	Stack<Pair> redo = new Stack<Pair>();
 	ShapeFactory factory = new ShapeFactory();
 	FileBuilder builder ;
 	JSONArray ShapesJson = new JSONArray();
@@ -47,157 +48,105 @@ public class drawingcompnents{
 
 	@GetMapping("/create")
 	void createShape(Shape sentobj) throws JsonProcessingException, JSONException, ParseException {
-		System.out.println(sentobj);
+		System.out.println(sentobj.getId());
 		ShapesA.AddShape(factory.create(sentobj));
+
 		Pair a = new Pair("create", factory.create(sentobj));
 		undo.push(a);
 
 	}
 
 	@GetMapping("/edit")
-	void edit(@RequestBody String sentobj) throws JSONException {
-		JSONObject sentJ = new JSONObject(sentobj);
-		JSONtoShapeConv map = new JSONtoShapeConv();
-		Shape jsontoShape = map.create(sentJ);
-		switch (sentJ.getString("operation"))
+	void edit(Shape sentobj, String sentJ) throws JSONException {
+
+		switch (sentJ)
 		{
 			case "copy":
-				ShapesA.AddShape(jsontoShape);
+				ShapesA.AddShape( sentobj);
 				break;
 			case "remove":
-				ShapesA.removeShape(jsontoShape.getId());
+				ShapesA.removeShape( sentobj.getId());
 				break;
 			case "edit":
 
-				Shape temp = ShapesA.GetShape(jsontoShape.getId());
+				Shape temp = ShapesA.GetShape( sentobj.getId());
 				Pair a = new Pair("edit", temp);
 				undo.push(a);
-				ShapesA.EditShape(jsontoShape);
+				ShapesA.EditShape(sentobj);
 				break;
 		}
 	}
 
-	@GetMapping("/Undo")
+	@GetMapping("/undo")
 	JSONObject undo() throws JSONException {
-
-		Pair temp = undo.pop();
-		switch (temp.frist)
+		try {
+			Pair temp = undo.pop();
+			switch (temp.frist) {
+				case "create":
+					redo.push(temp);
+					ShapesA.removeShape(temp.second.getId());
+					break;
+				case "edit":
+					Shape temp1 = ShapesA.GetShape(temp.second.getId());
+					redo.push(new Pair("edit", temp1));
+					ShapesA.EditShape(temp.second);
+					break;
+			}
+		}catch (EmptyStackException e)
 		{
-			case "create":
-				redo.push(temp);
-				ShapesA.removeShape(temp.second.getId());
-				break;
-			case "edit":
-				Shape temp1 = ShapesA.GetShape(temp.second.getId());
-				redo.push(new Pair("edit",temp1));
-				ShapesA.EditShape(temp.second);
-				break;
+			System.out.println("Error");
+			return null;
 		}
 
 		return new FileBuilder().jsonBuilder(ShapesA.shapes);
 
 	}
 
-	@GetMapping("/Redo")
+	@GetMapping("/redo")
 	JSONObject redo() throws JSONException {
-
-		Pair temp = redo.pop();
-		switch (temp.frist)
-		{
-			case "create":
-				undo.push(temp);
-				ShapesA.AddShape(temp.second);
-				break;
-			case "edit":
-				Shape temp1 = ShapesA.GetShape(temp.second.getId());
-				undo.push(new Pair("edit",temp1));
-				ShapesA.EditShape(temp.second);
-				break;
-		}
+		try {
+			Pair temp = redo.pop();
+			switch (temp.frist) {
+				case "create":
+					undo.push(temp);
+					ShapesA.AddShape(temp.second);
+					break;
+				case "edit":
+					Shape temp1 = ShapesA.GetShape(temp.second.getId());
+					undo.push(new Pair("edit", temp1));
+					ShapesA.EditShape(temp.second);
+					break;
+			}
+		}catch (EmptyStackException e)
+			{
+				System.out.println("Error");
+				return null;
+			}
 		return new FileBuilder().jsonBuilder(ShapesA.shapes);
 	}
 
-	@GetMapping("/Save")
-	void save(@RequestParam String path, @RequestParam String name, @RequestParam String type) throws JSONException {
+	@GetMapping("/save")
+	JSONObject save( ) throws JSONException {
 		FileBuilder builder = new FileBuilder();
 
 		JSONObject saveJ = builder.jsonBuilder(ShapesA.shapes);
 
+		String saveJS = JSONObject.valueToString(saveJ);
 		String saveX = builder.xmlBuilder(ShapesA.shapes);
 
-
-		FileWriter file = null;
-
-		try {
-			if (type == "xml") {
-				file = new FileWriter(path + "\\" +  name +  ".xml");
-				file.write(saveX.toString());
-			}
-			else{
-				file = new FileWriter(path + "\\" +  name +  ".json");
-				file.write(saveJ.toString());
-			}
-
-
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-
-		finally {
-			try {
-				file.flush();
-				file.close();
-			}catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
+		JSONObject formats = new JSONObject();
+		formats.put("json", saveJS);
+		formats.put("xml", saveX);
+		return formats;
 
 	}
 
-		@GetMapping("/Load")
-		ArrayList<Shape> load(@RequestParam String path, @RequestParam String name, @RequestParam String type) {
+		@GetMapping("/load")
+		ArrayList<Shape> load(String load) {
 
+			JSONObject temp = new JSONObject(load);
 			JSONToShapeArray mapper = new JSONToShapeArray();
-			JSONParser jsonParser = new JSONParser();
-			JSONObject json;
-			File file = new File(path + "\\" +  name +  "." + type);
-			try (FileReader reader = new FileReader(file))
-			{
-				//Read JSON file
-
-				if (type.equalsIgnoreCase("json"))
-				{
-					json = (JSONObject) jsonParser.parse(reader);
-					ShapesA.shapes = mapper.create(json);
-				}
-				else if (type.equalsIgnoreCase("xml"))
-				{
-					DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
-							.newInstance();
-					DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-					Document document = documentBuilder.parse(file);
-					json = XML.toJSONObject(document.toString());
-					ShapesA.shapes = mapper.create(json);
-				}
-
-
-
-
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (org.json.simple.parser.ParseException e) {
-				e.printStackTrace();
-			} catch (JSONException e) {
-				e.printStackTrace();
-			} catch (ParserConfigurationException e) {
-				e.printStackTrace();
-			} catch (SAXException e) {
-				e.printStackTrace();
-			}
+			ShapesA.shapes = mapper.create(temp);
 			return ShapesA.shapes;
 		}
 

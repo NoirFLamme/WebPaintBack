@@ -7,7 +7,7 @@ public class ShapesArray {
     public ArrayList<Shape> shapes;
     public ShapesArray(){}
     {
-        this.shapes = null;
+        this.shapes = new ArrayList<Shape>();
     }
 
     public void AddShape(Shape drawing){
