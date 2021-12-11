@@ -2,17 +2,16 @@ package com.example.springboot;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
-import org.apache.tomcat.util.json.JSONParser;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import org.json.XML;
 import org.springframework.web.bind.annotation.*;
+import org.json.simple.parser.JSONParser;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -20,6 +19,12 @@ import java.util.ArrayList;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Component;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 @RestController
 @CrossOrigin(origins="http://localhost:4200/")
@@ -37,13 +42,12 @@ public class drawingcompnents{
 
 
 	@GetMapping("/create")
-	void createShape(@RequestBody JSONObject sentobj) throws JsonProcessingException {
+	void createShape(@RequestBody JSONObject sentobj) throws JsonProcessingException, JSONException {
 
-		ShapesJson.put(sentobj);
-		ObjectMapper objectMapper = new ObjectMapper();
-		Object jsontoObject = objectMapper.readValue(sentobj.toString(),Object.class);
+		JSONtoShapeConv map = new JSONtoShapeConv();
+		Shape jsontoShape = map.create(sentobj);
 		System.out.println(sentobj);
-		Shapeslist.add(factory.create(jsontoObject));
+		Shapeslist.add(factory.create(jsontoShape));
 
 	}
 
@@ -104,28 +108,52 @@ public class drawingcompnents{
 
 	}
 
-//		@GetMapping("/Load")
-//		ArrayList<Shape> load(String path, String name) {
-//
-//			JSONParser jsonParser = new JSONParser();
-//
-//			try (FileReader reader = new FileReader("employees.json"))
-//			{
-//				//Read JSON file
-//				Shapeslist = jsonParser.parse(reader);
-//
-//
-//
-//			} catch (FileNotFoundException e) {
-//				e.printStackTrace();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			} catch (ParseException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//
-//	}
+		@GetMapping("/Load")
+		ArrayList<Shape> load(@RequestParam String path, @RequestParam String name, @RequestParam String type) {
+
+			JSONToShapeArray mapper = new JSONToShapeArray();
+			JSONParser jsonParser = new JSONParser();
+			JSONObject json;
+			File file = new File(path + "\\" +  name +  "." + type);
+			try (FileReader reader = new FileReader(file))
+			{
+				//Read JSON file
+
+				if (type.equalsIgnoreCase("json"))
+				{
+					json = (JSONObject) jsonParser.parse(reader);
+					Shapeslist = mapper.create(json);
+				}
+				else if (type.equalsIgnoreCase("xml"))
+				{
+					DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
+							.newInstance();
+					DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+					Document document = documentBuilder.parse(file);
+					json = XML.toJSONObject(document.toString());
+					Shapeslist = mapper.create(json);
+				}
 
 
-}
+
+
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (org.json.simple.parser.ParseException e) {
+				e.printStackTrace();
+			} catch (JSONException e) {
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
+				e.printStackTrace();
+			} catch (SAXException e) {
+				e.printStackTrace();
+			}
+			return Shapeslist;
+		}
+
+	}
+
+
+

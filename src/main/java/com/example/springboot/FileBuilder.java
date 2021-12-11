@@ -6,20 +6,20 @@ import org.json.*;
 import java.beans.XMLEncoder;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.logging.XMLFormatter;
+
+
 
 public class FileBuilder {
 
-    JSONShapeConverter converter = new  JSONShapeConverter();
+    ShapeArraytoJSON converterJ = new ShapeArraytoJSON();
     public JSONObject jsonBuilder(ArrayList<Shape>shapes) throws JSONException {
-        return converter.ShapesToJson(shapes);
+        return converterJ.create(shapes);
     }
 
 
 
     public String  xmlBuilder(ArrayList<Shape>shapes) throws JSONException {
-        String xml = XML.toString(converter.ShapesToJson(shapes));
+        String xml = XML.toString(converterJ.create(shapes));
         return xml;
     }
 
