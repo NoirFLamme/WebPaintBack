@@ -16,14 +16,14 @@ public class ShapesArray {
 
     public void removeShape(String id){
         for (int i = 0;i < this.shapes.size();i++){
-            if(id == this.shapes.get(i).id)
-               this.shapes.remove(i);
+            if(id.equalsIgnoreCase(this.shapes.get(i).id) )
+               this.shapes.remove((int)i);
         }
     }
 
     public Shape GetShape(String id){
         for (int i = 0;i < this.shapes.size();i++){
-            if(id == this.shapes.get(i).id)
+            if(id.equalsIgnoreCase(this.shapes.get(i).id) )
                 return this.shapes.get(i);
         }
         return null;
@@ -31,7 +31,7 @@ public class ShapesArray {
 
     public void EditShape(Shape a){
         for (int i = 0;i < this.shapes.size();i++){
-            if(a.id == this.shapes.get(i).id) {
+            if(a.id.equalsIgnoreCase(this.shapes.get(i).id) ) {
                 this.shapes.set(i, a);
                 return;
             }

@@ -48,24 +48,22 @@ public class drawingcompnents{
 	}
 
 	@GetMapping("/edit")
-	void edit(Shape sentobj, String sentJ) throws JSONException {
-
-		switch (sentJ)
-		{
-			case "copy":
-				ShapesA.AddShape( sentobj);
-				break;
-			case "remove":
-				ShapesA.removeShape( sentobj.getId());
-				break;
-			case "edit":
-
+	void edit(Shape sentobj) throws JSONException {
 				Shape temp = ShapesA.GetShape( sentobj.getId());
 				Pair a = new Pair("edit", temp);
 				undo.push(a);
 				ShapesA.EditShape(sentobj);
-				break;
-		}
+
+	}
+	@GetMapping("/remove")
+	void remove(Shape sentobj) throws JSONException {
+		ShapesA.removeShape(sentobj.getId());
+		System.out.println();
+	}
+	@GetMapping("/copy")
+	void copy(Shape sentobj) throws JSONException {
+
+				ShapesA.AddShape(sentobj);
 	}
 
 	@GetMapping("/undo")
@@ -122,7 +120,7 @@ public class drawingcompnents{
 
 		JSONObject saveJ = builder.jsonBuilder(ShapesA.shapes);
 
-		String saveJS = JSONObject.valueToString(saveJ);
+		String saveJS = saveJ.toString();
 		String saveX = builder.xmlBuilder(ShapesA.shapes);
 
 		JSONObject formats = new JSONObject();

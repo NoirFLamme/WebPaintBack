@@ -13,7 +13,7 @@ public class JSONtoShapeConv implements Converter<Shape, JSONObject>{
 
     public Shape create(JSONObject json) throws JSONException {
 
-        Shape temp = null;
+        Shape temp = new Shape();
         temp.setType(json.getString("type"));
         temp.setPositionX(json.getString("position.x"));
         temp.setPositionY(json.getString("position.y"));
