@@ -6,19 +6,25 @@ import java.util.ArrayList;
 public abstract class Shape {
 
 	int id;
-	protected String type;
-	protected String color;
-	protected Point position;
-	protected boolean isSelected;
+
+	public Shape(int id, String type, String color, String positionX, String positionY) {
+		this.id = id;
+		this.type = type;
+		this.color = color;
+		this.positionX = positionX;
+		this.positionY = positionY;
+
+	}
 
 	public Shape() {
 		id = 0;
 		type = null;
 		color = null;
-		position.x = 0;
-		position.y =0;
-		isSelected = true;
+		positionX = "";
+		positionY = "";
 	}
+
+	protected String type;
 
 	public int getId() {
 		return id;
@@ -32,8 +38,8 @@ public abstract class Shape {
 		return type;
 	}
 
-	public void setType(String t) {
-		this.type = t;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getColor() {
@@ -44,19 +50,32 @@ public abstract class Shape {
 		this.color = color;
 	}
 
-	public Point getPosition() {
-		return position;
+	public String getPositionX() {
+		return positionX;
 	}
 
-	public void setPosition(Point position) {
-		this.position = position;
+	public void setPositionX(String positionX) {
+		this.positionX = positionX;
+	}
+
+	public String getPositionY() {
+		return positionY;
+	}
+
+	public void setPositionY(String positionY) {
+		this.positionY = positionY;
 	}
 
 
-	void move(Point position){
-		this.position = position;
-	}
+
+	protected String color;
+	protected String positionX;
+	protected String positionY;
+
+
+
+
+
 
 
 }
-

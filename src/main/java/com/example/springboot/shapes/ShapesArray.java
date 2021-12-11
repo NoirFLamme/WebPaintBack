@@ -39,10 +39,11 @@ public class ShapesArray {
         this.shapes.add(a);
     }
 
-    public void copy(int id, int new_id, Point position) {
+    public void copy(int id, int new_id, String positionx, String positiony) {
         Shape a = GetShape(id);
         a.id = new_id;
-        a.position = position;
+        a.positionX = positionx;
+        a.positionY = positiony;
         EditShape(a);
     }
 }

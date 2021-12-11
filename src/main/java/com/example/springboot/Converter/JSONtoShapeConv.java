@@ -14,10 +14,8 @@ public class JSONtoShapeConv implements Converter<Shape, JSONObject>{
 
         Shape temp = null;
         temp.setType(json.getString("type"));
-        Point point = new Point();
-        point.x = json.getInt("position.x");
-        point.y = json.getInt("position.y");
-        temp.setPosition(point);
+        temp.setPositionX(json.getString("position.x"));
+        temp.setPositionY(json.getString("position.y"));
         temp.setId(json.getInt("id"));
         temp.setColor(json.getString("color"));
 
@@ -29,10 +27,8 @@ public class JSONtoShapeConv implements Converter<Shape, JSONObject>{
                 break;
             case "line":
                 Line line = (Line) temp;
-                point = new Point();
-                point.x = json.getInt("secondPosition.x");
-                point.y = json.getInt("secondPosition.y");
-                ((Line) temp).setsseondpositon(point);
+                ((Line) temp).setsseondpositonX(json.getString("secondPosition.x"));
+                ((Line) temp).setsseondpositonY(json.getString("secondPosition.y"));
                 break;
             case "ellipse":
                 Elipse elipse = (Elipse) temp;

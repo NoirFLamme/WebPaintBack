@@ -5,17 +5,22 @@ import java.util.ArrayList;
 
 public class Line extends Shape {
 
-	protected Point secondposition;
+	protected String secondpositionX;
+	protected String secondpositionY;
 
 	public Line() {
 		super();
-		this.secondposition = null;
+		this.secondpositionX = null;
+		this.secondpositionY = null;
 	}
 
-	public Point getsecondposition() { return secondposition;}
-
-	public void setsseondpositon(Point x) {
-		this.secondposition = x;
+	public String getsecondpositionX() { return secondpositionX;}
+	public String getsecondpositionY() { return secondpositionY;}
+	public void setsseondpositonX(String x) {
+		this.secondpositionX = x;
+	}
+	public void setsseondpositonY(String x) {
+		this.secondpositionY = x;
 	}
 
 

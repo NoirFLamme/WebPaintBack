@@ -14,7 +14,8 @@ public class ShapeFactory {
             {
                 Circle circle = new Circle();
                 circle.setType(sentobj.getType());
-                circle.setPosition(sentobj.getPosition());
+                circle.setPositionX(sentobj.getPositionX());
+                circle.setPositionY(sentobj.getPositionY());
                 circle.setRadius(((Circle) sentobj).getRadius());
                 circle.setColor(sentobj.getColor());
                 circle.setId( sentobj.getId());
@@ -25,7 +26,8 @@ public class ShapeFactory {
             {
                 Polygon poly = new Polygon();
                 poly.setType(sentobj.getType());
-                poly.setPosition(sentobj.getPosition());
+                poly.setPositionX(sentobj.getPositionX());
+                poly.setPositionY(sentobj.getPositionY());
                 poly.setPoints(((Polygon) sentobj).getPoints());
                 poly.setColor(sentobj.getColor());
                 poly.setId( sentobj.getId());
@@ -36,7 +38,8 @@ public class ShapeFactory {
             {
                 Elipse elipse = new Elipse();
                 elipse.setType(sentobj.getType());
-                elipse.setPosition(sentobj.getPosition());
+                elipse.setPositionX(sentobj.getPositionX());
+                elipse.setPositionY(sentobj.getPositionY());
                 elipse.setRadiusx(((Elipse) sentobj).getRadiusx());
                 elipse.setRadiusy( ((Elipse) sentobj).getRadiusy());
                 elipse.setColor(sentobj.getColor());
@@ -47,8 +50,10 @@ public class ShapeFactory {
             {
                 Line line = new Line();
                 line.setType(sentobj.getType());
-                line.setPosition(sentobj.getPosition());
-                line.setsseondpositon(((Line) sentobj).getsecondposition());;
+                line.setPositionX(sentobj.getPositionX());
+                line.setPositionY(sentobj.getPositionY());
+                line.setsseondpositonX(((Line) sentobj).getsecondpositionX());
+                line.setsseondpositonY(((Line) sentobj).getsecondpositionY());
                 line.setColor(sentobj.getColor());
                 line.setId( sentobj.getId());
 

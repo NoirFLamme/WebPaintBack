@@ -35,7 +35,6 @@ public class drawingcompnents{
 
 
 	ShapesArray ShapesA = new ShapesArray();
-	ArrayList<Shape> Undone;
 
 
 	Stack<Pair> undo = new Stack<>();
@@ -47,15 +46,10 @@ public class drawingcompnents{
 
 
 	@GetMapping("/create")
-	void createShape(@RequestBody String sentobj) throws JsonProcessingException, JSONException, ParseException {
-
-		JSONParser parser = new JSONParser();
-		JSONObject sentJ = (JSONObject) parser.parse(sentobj);
-		JSONtoShapeConv map = new JSONtoShapeConv();
-		Shape jsontoShape = map.create(sentJ);
-		System.out.println(sentJ);
-		ShapesA.AddShape(factory.create(jsontoShape));
-		Pair a = new Pair("create", factory.create(jsontoShape));
+	void createShape(Shape sentobj) throws JsonProcessingException, JSONException, ParseException {
+		System.out.println(sentobj);
+		ShapesA.AddShape(factory.create(sentobj));
+		Pair a = new Pair("create", factory.create(sentobj));
 		undo.push(a);
 
 	}

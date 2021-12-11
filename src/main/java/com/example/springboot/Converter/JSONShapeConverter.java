@@ -20,8 +20,8 @@ public class JSONShapeConverter implements Converter<JSONObject, Shape>{
             json.put("id", shape.getId());
             json.put("type", shape.getType());
             json.put("color", shape.getColor());
-            json.put("position.x", shape.getPosition().x);
-            json.put("position.y", shape.getPosition().y);
+            json.put("position.x", shape.getPositionX());
+            json.put("position.y", shape.getPositionY());
 
             switch (shape.getType())
             {
@@ -31,7 +31,8 @@ public class JSONShapeConverter implements Converter<JSONObject, Shape>{
                     break;
                 case "line":
                     Line line = (Line) shape;
-                    json.put("secondPosition", line.getsecondposition());
+                    json.put("secondPosition.x", line.getsecondpositionX());
+                    json.put("secondPosition.y", line.getsecondpositionY());
                     break;
                 case "ellipse":
                     Elipse elipse = (Elipse) shape;
