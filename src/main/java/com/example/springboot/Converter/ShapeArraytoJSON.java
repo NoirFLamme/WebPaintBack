@@ -7,15 +7,17 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class ShapeArraytoJSON  implements Converter<JSONObject, ArrayList<Shape>>{
 
-    JSONArray ellipseJ;
-    JSONArray lineJ;
-    JSONArray circleJ;
-    JSONArray polygonJ;
+    JSONArray ellipseJ = new JSONArray();
+    JSONArray lineJ= new JSONArray();
+    JSONArray circleJ = new JSONArray();
+    JSONArray polygonJ= new JSONArray();
+    JSONArray rectJ= new JSONArray();
 
-    JSONObject shapesJ;
+    JSONObject shapesJ = new JSONObject();
 
     public JSONObject create (ArrayList<Shape> shapes) throws JSONException {
         JSONObject json = new JSONObject();
@@ -28,6 +30,9 @@ public class ShapeArraytoJSON  implements Converter<JSONObject, ArrayList<Shape>
                 case "circle":
                     circleJ.put(json);
                     break;
+                case "rectangle":
+                    rectJ.put(json);
+                    break;
                 case "line":
                     lineJ.put(json);
                     break;
@@ -39,15 +44,16 @@ public class ShapeArraytoJSON  implements Converter<JSONObject, ArrayList<Shape>
                     break;
             }
 
-            Iterator keys = json.keys();
-            while(keys.hasNext())
-                json.remove((String)json.keys().next());
+
+
+
         }
 
         shapesJ.put("circle",circleJ);
         shapesJ.put("ellipse",ellipseJ);
         shapesJ.put("polygon",polygonJ);
         shapesJ.put("line",lineJ);
+        shapesJ.put("rectangle",rectJ);
 
         return shapesJ;
 

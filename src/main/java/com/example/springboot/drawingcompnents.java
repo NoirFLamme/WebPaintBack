@@ -1,6 +1,6 @@
 package com.example.springboot;
 import com.example.springboot.Converter.JSONToShapeArray;
-import com.example.springboot.Converter.JSONtoShapeConv;
+
 import com.example.springboot.shapes.Shape;
 import com.example.springboot.shapes.ShapesArray;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -9,24 +9,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import org.json.XML;
+
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.*;
-import org.json.simple.parser.JSONParser;
 
-import java.awt.*;
-import java.io.*;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
-//import org.springframework.boot.CommandLineRunner;
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 @RestController
 @CrossOrigin(origins="http://localhost:4200/")
@@ -48,7 +39,7 @@ public class drawingcompnents{
 
 	@GetMapping("/create")
 	void createShape(Shape sentobj) throws JsonProcessingException, JSONException, ParseException {
-		System.out.println(sentobj.getId());
+		System.out.println(sentobj.getRadius());
 		ShapesA.AddShape(factory.create(sentobj));
 
 		Pair a = new Pair("create", factory.create(sentobj));
@@ -97,7 +88,7 @@ public class drawingcompnents{
 			System.out.println("Error");
 			return null;
 		}
-
+		System.out.println();
 		return new FileBuilder().jsonBuilder(ShapesA.shapes);
 
 	}

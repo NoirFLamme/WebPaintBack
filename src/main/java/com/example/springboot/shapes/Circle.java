@@ -3,18 +3,18 @@ package com.example.springboot.shapes;
 import java.util.ArrayList;
 
 public class Circle extends Shape{
-	protected int radius;
+	protected String radius;
 
 	public Circle() {
 		super();
-		radius = 0;
+		radius = "";
 	}
 
-	public int getRadius() {
+	public String getRadius() {
 		return radius;
 	}
 
-	public void setRadius(int radius) {
+	public void setRadius(String radius) {
 		this.radius = radius;
 	}
 

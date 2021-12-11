@@ -20,32 +20,30 @@ public class JSONShapeConverter implements Converter<JSONObject, Shape>{
             json.put("id", shape.getId());
             json.put("type", shape.getType());
             json.put("color", shape.getColor());
-            json.put("position.x", shape.getPositionX());
-            json.put("position.y", shape.getPositionY());
+            json.put("positionX", shape.getPositionX());
+            json.put("positionY", shape.getPositionY());
 
             switch (shape.getType())
             {
                 case "circle":
-                    Circle circle = (Circle) shape;
-                    json.put("radius", circle.getRadius());
+                    json.put("radius", shape.getRadius());
                     break;
                 case "line":
-                    Line line = (Line) shape;
-                    json.put("secondPosition.x", line.getsecondpositionX());
-                    json.put("secondPosition.y", line.getsecondpositionY());
+
+                    json.put("secondPosition.x", shape.getSecondpositionX());
+                    json.put("secondPosition.y", shape.getSecondpositionY());
                     break;
                 case "ellipse":
-                    Elipse elipse = (Elipse) shape;
-                    json.put("radiusx", elipse.getRadiusx());
-                    json.put("radiusy", elipse.getRadiusy());
+
+                    json.put("radiusx", shape.getRadiusx());
+                    json.put("radiusy", shape.getRadiusy());
                     break;
                 case "polygon":
-                    Polygon poly = (Polygon) shape;
-                    json.put("radiusx", poly.getPoints());
+
+                    json.put("radiusx", shape.getPoints());
                     break;
             }
-
-
+        System.out.println();
         return json;
 
     }

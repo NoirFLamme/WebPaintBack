@@ -2,6 +2,7 @@ package com.example.springboot.Converter;
 
 import com.example.springboot.shapes.*;
 import com.example.springboot.shapes.Polygon;
+import com.example.springboot.shapes.Rectangle;
 import com.example.springboot.shapes.Shape;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,28 +17,29 @@ public class JSONtoShapeConv implements Converter<Shape, JSONObject>{
         temp.setType(json.getString("type"));
         temp.setPositionX(json.getString("position.x"));
         temp.setPositionY(json.getString("position.y"));
-        temp.setId(json.getInt("id"));
+        temp.setId(json.getString("id"));
         temp.setColor(json.getString("color"));
 
         switch (temp.getType())
         {
             case "circle":
-                Circle circle = (Circle) temp;
-                ((Circle) temp).setRadius(json.getInt("radius"));
+                temp.setRadius(json.getString("radius"));
+                break;
+
+            case "rectangle":
+                temp.setWidth(json.getString("width"));
+                temp.setHeight(json.getString("height"));
                 break;
             case "line":
-                Line line = (Line) temp;
-                ((Line) temp).setsseondpositonX(json.getString("secondPosition.x"));
-                ((Line) temp).setsseondpositonY(json.getString("secondPosition.y"));
+                temp.setSecondpositionX(json.getString("secondPositionX"));
+                temp.setSecondpositionY(json.getString("secondPositionY"));
                 break;
             case "ellipse":
-                Elipse elipse = (Elipse) temp;
-                ((Elipse) temp).setRadiusx(json.getInt("radiusx"));
-                ((Elipse) temp).setRadiusy(json.getInt("radiusy"));
+                 temp.setRadiusx(json.getString("radiusx"));
+                 temp.setRadiusy(json.getString("radiusy"));
                 break;
             case "polygon":
-                Polygon poly = (Polygon) temp;
-                ((Polygon) temp).setPoints(json.getString("points"));
+                 temp.setPoints(json.getString("points"));
                 break;
         }
 

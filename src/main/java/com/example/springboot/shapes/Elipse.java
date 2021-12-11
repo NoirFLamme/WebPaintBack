@@ -3,28 +3,28 @@ package com.example.springboot.shapes;
 import java.util.ArrayList;
 
 public class Elipse extends Shape {
-	protected int radiusx, radiusy;
+	protected String radiusx, radiusy;
 	
 
 	public Elipse(Shape a) {
-		super(a);
-		radiusx = 0;
-		radiusy = 0;
+
+		radiusx = "";
+		radiusy = "";
 	}
 
-	public int getRadiusx() {
+	public String getRadiusx() {
 		return radiusx;
 	}
 
-	public void setRadiusx(int radiusx) {
+	public void setRadiusx(String radiusx) {
 		this.radiusx = radiusx;
 	}
 
-	public int getRadiusy() {
+	public String getRadiusy() {
 		return radiusy;
 	}
 
-	public void setRadiusy(int radiusy) {
+	public void setRadiusy(String radiusy) {
 		this.radiusy = radiusy;
 	}
 

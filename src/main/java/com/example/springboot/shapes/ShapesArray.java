@@ -14,14 +14,14 @@ public class ShapesArray {
         this.shapes.add(drawing);
     }
 
-    public void removeShape(int id){
+    public void removeShape(String id){
         for (int i = 0;i < this.shapes.size();i++){
             if(id == this.shapes.get(i).id)
                this.shapes.remove(i);
         }
     }
 
-    public Shape GetShape(int id){
+    public Shape GetShape(String id){
         for (int i = 0;i < this.shapes.size();i++){
             if(id == this.shapes.get(i).id)
                 return this.shapes.get(i);
@@ -39,7 +39,7 @@ public class ShapesArray {
         this.shapes.add(a);
     }
 
-    public void copy(int id, int new_id, String positionx, String positiony) {
+    public void copy(String id, String new_id, String positionx, String positiony) {
         Shape a = GetShape(id);
         a.id = new_id;
         a.positionX = positionx;

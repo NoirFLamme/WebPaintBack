@@ -7,7 +7,6 @@ public class ShapeFactory {
     {
 
 
-
         if (sentobj != null)
         {
             if (sentobj.getType().equalsIgnoreCase("circle"))
@@ -16,7 +15,7 @@ public class ShapeFactory {
                 circle.setType(sentobj.getType());
                 circle.setPositionX(sentobj.getPositionX());
                 circle.setPositionY(sentobj.getPositionY());
-                circle.setRadius(((Circle) sentobj).getRadius());
+                circle.setRadius( sentobj.getRadius());
                 circle.setColor(sentobj.getColor());
                 circle.setId( sentobj.getId());
 
@@ -28,7 +27,7 @@ public class ShapeFactory {
                 poly.setType(sentobj.getType());
                 poly.setPositionX(sentobj.getPositionX());
                 poly.setPositionY(sentobj.getPositionY());
-                poly.setPoints(((Polygon) sentobj).getPoints());
+                poly.setPoints(( sentobj).getPoints());
                 poly.setColor(sentobj.getColor());
                 poly.setId( sentobj.getId());
 
@@ -40,11 +39,23 @@ public class ShapeFactory {
                 elipse.setType(sentobj.getType());
                 elipse.setPositionX(sentobj.getPositionX());
                 elipse.setPositionY(sentobj.getPositionY());
-                elipse.setRadiusx(((Elipse) sentobj).getRadiusx());
-                elipse.setRadiusy( ((Elipse) sentobj).getRadiusy());
+                elipse.setRadiusx(( sentobj).getRadiusx());
+                elipse.setRadiusy( ( sentobj).getRadiusy());
                 elipse.setColor(sentobj.getColor());
                 elipse.setId( sentobj.getId());
                 return elipse;
+            }
+            else if (sentobj.getType().equalsIgnoreCase("rectangle"))
+            {
+                Rectangle rectangle = new Rectangle();
+                rectangle.setType(sentobj.getType());
+                rectangle.setPositionX(sentobj.getPositionX());
+                rectangle.setPositionY(sentobj.getPositionY());
+                rectangle.setRadiusx(( sentobj).getRadiusx());
+                rectangle.setRadiusy( ( sentobj).getRadiusy());
+                rectangle.setColor(sentobj.getColor());
+                rectangle.setId( sentobj.getId());
+                return rectangle;
             }
             else if (sentobj.getType().equalsIgnoreCase("line"))
             {
@@ -52,8 +63,8 @@ public class ShapeFactory {
                 line.setType(sentobj.getType());
                 line.setPositionX(sentobj.getPositionX());
                 line.setPositionY(sentobj.getPositionY());
-                line.setsseondpositonX(((Line) sentobj).getsecondpositionX());
-                line.setsseondpositonY(((Line) sentobj).getsecondpositionY());
+                line.setsseondpositonX( sentobj.getSecondpositionX());
+                line.setsseondpositonY( sentobj.getSecondpositionY());
                 line.setColor(sentobj.getColor());
                 line.setId( sentobj.getId());
 
