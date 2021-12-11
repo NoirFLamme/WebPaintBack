@@ -1,5 +1,6 @@
 package com.example.springboot.shapes;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class ShapesArray {
@@ -36,5 +37,12 @@ public class ShapesArray {
             }
         }
         this.shapes.add(a);
+    }
+
+    void copy(int id, int new_id, Point position) {
+        Shape a = GetShape(id);
+        a.id = new_id;
+        a.position = position;
+        EditShape(a);
     }
 }

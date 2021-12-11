@@ -51,9 +51,8 @@ public class drawingcompnents{
 	}
 
 	@GetMapping("/edit")
-	void edit(@RequestBody JSONObject sentobj)
-	{
-
+	void edit(@RequestBody String sentobj) throws JSONException {
+		JSONObject sentJ = new JSONObject(sentobj);
 	}
 
 	@GetMapping("/Undo")

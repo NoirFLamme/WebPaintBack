@@ -19,28 +19,5 @@ public class Polygon extends Shape {
 		this.points = points;
 	}
 
-	@Override
-	Shape select(ArrayList<Shape> Shapeslist, int i) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	void move(Shape selectedShape) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	void copy(Shape selectedShape) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	void resize(Shape selectedShape) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

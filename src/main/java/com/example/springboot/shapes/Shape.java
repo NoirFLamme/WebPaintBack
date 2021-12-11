@@ -53,10 +53,10 @@ public abstract class Shape {
 	}
 
 
-	abstract Shape select( ArrayList<Shape> Shapeslist, int i);
-	abstract void move( Shape selectedShape);
-	abstract void copy( Shape selectedShape);
-	abstract void resize(Shape selectedShape);
+	void move(Point position){
+		this.position = position;
+	}
+
 
 }
 
