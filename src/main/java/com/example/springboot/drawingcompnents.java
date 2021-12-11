@@ -16,6 +16,7 @@ import org.json.simple.parser.JSONParser;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Stack;
 
 //import org.springframework.boot.CommandLineRunner;
 import org.w3c.dom.Document;
@@ -34,6 +35,10 @@ public class drawingcompnents{
 
 	ShapesArray ShapesA = new ShapesArray();
 	ArrayList<Shape> Undone;
+
+
+	Stack<Pair> undo = new Stack<>();
+	Stack<Pair> redo = new Stack<>();
 	ShapeFactory factory = new ShapeFactory();
 	FileBuilder builder ;
 	JSONArray ShapesJson = new JSONArray();
@@ -48,6 +53,8 @@ public class drawingcompnents{
 		Shape jsontoShape = map.create(sentJ);
 		System.out.println(sentJ);
 		ShapesA.AddShape(factory.create(jsontoShape));
+		Pair a = new Pair("create", factory.create(jsontoShape));
+		undo.push(a);
 
 	}
 
@@ -65,6 +72,10 @@ public class drawingcompnents{
 				ShapesA.removeShape(jsontoShape.getId());
 				break;
 			case "edit":
+
+				Shape temp = ShapesA.GetShape(jsontoShape.getId());
+				Pair a = new Pair("edit", temp);
+				undo.push(a);
 				ShapesA.EditShape(jsontoShape);
 				break;
 		}
@@ -73,8 +84,20 @@ public class drawingcompnents{
 	@GetMapping("/Undo")
 	JSONObject undo() throws JSONException {
 
-		Undone.add(ShapesA.shapes.get(ShapesA.shapes.size() - 1));
-		ShapesA.removeShape(ShapesA.shapes.size() - 1);
+		Pair temp = undo.pop();
+		switch (temp.frist)
+		{
+			case "create":
+				redo.push(temp);
+				ShapesA.removeShape(temp.second.getId());
+				break;
+			case "edit":
+				Shape temp1 = ShapesA.GetShape(temp.second.getId());
+				redo.push(new Pair("edit",temp1));
+				ShapesA.EditShape(temp.second);
+				break;
+		}
+
 		return new FileBuilder().jsonBuilder(ShapesA.shapes);
 
 	}
@@ -82,10 +105,20 @@ public class drawingcompnents{
 	@GetMapping("/Redo")
 	JSONObject redo() throws JSONException {
 
-		ShapesA.AddShape(Undone.get(Undone.size() - 1));
-		Undone.remove(Undone.size() - 1);
+		Pair temp = redo.pop();
+		switch (temp.frist)
+		{
+			case "create":
+				undo.push(temp);
+				ShapesA.AddShape(temp.second);
+				break;
+			case "edit":
+				Shape temp1 = ShapesA.GetShape(temp.second.getId());
+				undo.push(new Pair("edit",temp1));
+				ShapesA.EditShape(temp.second);
+				break;
+		}
 		return new FileBuilder().jsonBuilder(ShapesA.shapes);
-
 	}
 
 	@GetMapping("/Save")

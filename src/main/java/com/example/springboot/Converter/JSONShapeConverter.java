@@ -31,10 +31,7 @@ public class JSONShapeConverter implements Converter<JSONObject, Shape>{
                     break;
                 case "line":
                     Line line = (Line) shape;
-                    json.put("x1", line.getX1());
-                    json.put("x2", line.getX2());
-                    json.put("y1", line.getY1());
-                    json.put("y2", line.getY2());
+                    json.put("secondPosition", line.getsecondposition());
                     break;
                 case "ellipse":
                     Elipse elipse = (Elipse) shape;

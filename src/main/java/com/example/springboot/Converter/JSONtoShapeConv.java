@@ -29,10 +29,10 @@ public class JSONtoShapeConv implements Converter<Shape, JSONObject>{
                 break;
             case "line":
                 Line line = (Line) temp;
-                ((Line) temp).setX1(json.getInt("x1"));
-                ((Line) temp).setX2(json.getInt("x2"));
-                ((Line) temp).setY2(json.getInt("y1"));
-                ((Line) temp).setY2(json.getInt("y2"));
+                point = new Point();
+                point.x = json.getInt("secondPosition.x");
+                point.y = json.getInt("secondPosition.y");
+                ((Line) temp).setsseondpositon(point);
                 break;
             case "ellipse":
                 Elipse elipse = (Elipse) temp;

@@ -48,10 +48,7 @@ public class ShapeFactory {
                 Line line = new Line();
                 line.setType(sentobj.getType());
                 line.setPosition(sentobj.getPosition());
-                line.setX1(((Line) sentobj).getX1());;
-                line.setX2(((Line) sentobj).getX2());
-                line.setY1(((Line) sentobj).getY1());
-                line.setY2(((Line) sentobj).getY2());
+                line.setsseondpositon(((Line) sentobj).getsecondposition());;
                 line.setColor(sentobj.getColor());
                 line.setId( sentobj.getId());
 
