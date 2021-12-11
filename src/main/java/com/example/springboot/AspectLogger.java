@@ -13,7 +13,7 @@ import org.springframework.util.StopWatch;
 @Component
 public class AspectLogger
 {
-    private static final Logger LOGGER = LogManager.getLogger(LoggingAspect.class);
+    private static final Logger LOGGER = LogManager.getLogger(AspectLogger.class);
 
     //AOP expression for which methods shall be intercepted
     @Around("execution(* com.example.springboot..*(..)))")
