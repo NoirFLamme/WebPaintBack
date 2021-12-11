@@ -13,6 +13,7 @@ import org.json.XML;
 import org.springframework.web.bind.annotation.*;
 import org.json.simple.parser.JSONParser;
 
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -53,6 +54,20 @@ public class drawingcompnents{
 	@GetMapping("/edit")
 	void edit(@RequestBody String sentobj) throws JSONException {
 		JSONObject sentJ = new JSONObject(sentobj);
+		JSONtoShapeConv map = new JSONtoShapeConv();
+		Shape jsontoShape = map.create(sentJ);
+		switch (sentJ.getString("operation"))
+		{
+			case "copy":
+				ShapesA.AddShape(jsontoShape);
+				break;
+			case "remove":
+				ShapesA.removeShape(jsontoShape.getId());
+				break;
+			case "edit":
+				ShapesA.EditShape(jsontoShape);
+				break;
+		}
 	}
 
 	@GetMapping("/Undo")
