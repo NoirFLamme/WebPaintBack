@@ -1,5 +1,6 @@
-package com.example.springboot;
+package com.example.springboot.Converter;
 
+import com.example.springboot.shapes.Shape;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,8 +23,7 @@ public class ShapeArraytoJSON  implements Converter<JSONObject, ArrayList<Shape>
         for (int i = 0; i < shapes.size(); i++)
         {
             json = conv.create(shapes.get(i));
-
-            switch (shapes.get(i).type)
+            switch (shapes.get(i).getType())
             {
                 case "circle":
                     circleJ.put(json);

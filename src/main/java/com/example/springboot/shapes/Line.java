@@ -1,4 +1,4 @@
-package com.example.springboot;
+package com.example.springboot.shapes;
 
 import java.util.ArrayList;
 

@@ -1,5 +1,6 @@
-package com.example.springboot;
+package com.example.springboot.Converter;
 
+import com.example.springboot.shapes.Shape;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

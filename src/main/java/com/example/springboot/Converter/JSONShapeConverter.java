@@ -1,12 +1,14 @@
-package com.example.springboot;
+package com.example.springboot.Converter;
 
-import org.json.JSONArray;
+import com.example.springboot.shapes.Circle;
+import com.example.springboot.shapes.Elipse;
+import com.example.springboot.shapes.Line;
+import com.example.springboot.shapes.Polygon;
+import com.example.springboot.shapes.Shape;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class JSONShapeConverter implements Converter<JSONObject, Shape>{
 

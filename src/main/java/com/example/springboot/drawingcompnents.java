@@ -1,7 +1,8 @@
 package com.example.springboot;
+import com.example.springboot.Converter.JSONToShapeArray;
+import com.example.springboot.Converter.JSONtoShapeConv;
+import com.example.springboot.shapes.Shape;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,13 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import org.json.simple.parser.JSONParser;
 
 import java.io.*;
-import java.text.ParseException;
 import java.util.ArrayList;
 
 //import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 

@@ -1,5 +1,7 @@
 package com.example.springboot;
 
+import com.example.springboot.shapes.*;
+
 public class ShapeFactory {
     public Shape create(Object sentobject)
     {
@@ -21,19 +23,6 @@ public class ShapeFactory {
             circle.isSelected = sentobj.isSelected;
 
             return circle;
-        }
-        else if (sentobj.type.equalsIgnoreCase("rectangle"))
-        {
-            Rectangle rect = new Rectangle();
-            rect.type = sentobj.type;
-            rect.width = ((Rectangle) sentobj).width;
-            rect.height = ((Rectangle) sentobj).height;
-            rect.color = sentobj.color;
-            rect.position = sentobj.position;
-            rect.isSelected = sentobj.isSelected;
-            rect.id = sentobj.id;
-
-            return rect;
         }
         else if (sentobj.type.equalsIgnoreCase("polygon"))
         {

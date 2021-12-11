@@ -1,31 +1,22 @@
-package com.example.springboot;
+package com.example.springboot.shapes;
 
 import java.util.ArrayList;
 
-public class Elipse extends Shape {
-	protected int radiusx, radiusy;
-	
+public class Polygon extends Shape {
 
-	public Elipse() {
+	protected String points;
+
+	public Polygon() {
 		super();
-		radiusx = 0;
-		radiusy = 0;
+		points = null;
 	}
 
-	public int getRadiusx() {
-		return radiusx;
+	public String getPoints() {
+		return points;
 	}
 
-	public void setRadiusx(int radiusx) {
-		this.radiusx = radiusx;
-	}
-
-	public int getRadiusy() {
-		return radiusy;
-	}
-
-	public void setRadiusy(int radiusy) {
-		this.radiusy = radiusy;
+	public void setPoints(String points) {
+		this.points = points;
 	}
 
 	@Override

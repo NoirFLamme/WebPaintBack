@@ -1,21 +1,31 @@
-package com.example.springboot;
+package com.example.springboot.shapes;
 
 import java.util.ArrayList;
 
-public class Circle extends Shape{
-	protected int radius;
+public class Elipse extends Shape {
+	protected int radiusx, radiusy;
+	
 
-	public Circle() {
+	public Elipse() {
 		super();
-		radius = 0;
+		radiusx = 0;
+		radiusy = 0;
 	}
 
-	public int getRadius() {
-		return radius;
+	public int getRadiusx() {
+		return radiusx;
 	}
 
-	public void setRadius(int radius) {
-		this.radius = radius;
+	public void setRadiusx(int radiusx) {
+		this.radiusx = radiusx;
+	}
+
+	public int getRadiusy() {
+		return radiusy;
+	}
+
+	public void setRadiusy(int radiusy) {
+		this.radiusy = radiusy;
 	}
 
 	@Override
