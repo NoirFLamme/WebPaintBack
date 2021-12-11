@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import org.json.XML;
+import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.*;
 import org.json.simple.parser.JSONParser;
 
@@ -46,9 +47,10 @@ public class drawingcompnents{
 
 
 	@GetMapping("/create")
-	void createShape(@RequestBody String sentobj) throws JsonProcessingException, JSONException {
+	void createShape(@RequestBody String sentobj) throws JsonProcessingException, JSONException, ParseException {
 
-		JSONObject sentJ = new JSONObject(sentobj);
+		JSONParser parser = new JSONParser();
+		JSONObject sentJ = (JSONObject) parser.parse(sentobj);
 		JSONtoShapeConv map = new JSONtoShapeConv();
 		Shape jsontoShape = map.create(sentJ);
 		System.out.println(sentJ);
