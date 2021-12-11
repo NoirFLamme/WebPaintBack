@@ -2,6 +2,7 @@ package com.example.springboot;
 import com.example.springboot.Converter.JSONToShapeArray;
 import com.example.springboot.Converter.JSONtoShapeConv;
 import com.example.springboot.shapes.Shape;
+import com.example.springboot.shapes.ShapesArray;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import org.json.JSONArray;
@@ -30,7 +31,7 @@ import javax.xml.parsers.ParserConfigurationException;
 public class drawingcompnents{
 
 
-	ArrayList<Shape> Shapeslist;
+	ShapesArray ShapesA = new ShapesArray();
 	ArrayList<Shape> Undone;
 	ShapeFactory factory = new ShapeFactory();
 	FileBuilder builder ;
@@ -39,30 +40,37 @@ public class drawingcompnents{
 
 
 	@GetMapping("/create")
-	void createShape(@RequestBody JSONObject sentobj) throws JsonProcessingException, JSONException {
+	void createShape(@RequestBody String sentobj) throws JsonProcessingException, JSONException {
 
+		JSONObject sentJ = new JSONObject(sentobj);
 		JSONtoShapeConv map = new JSONtoShapeConv();
-		Shape jsontoShape = map.create(sentobj);
-		System.out.println(sentobj);
-		Shapeslist.add(factory.create(jsontoShape));
+		Shape jsontoShape = map.create(sentJ);
+		System.out.println(sentJ);
+		ShapesA.AddShape(factory.create(jsontoShape));
+
+	}
+
+	@GetMapping("/edit")
+	void edit(@RequestBody JSONObject sentobj)
+	{
 
 	}
 
 	@GetMapping("/Undo")
 	JSONObject undo() throws JSONException {
 
-		Undone.add(Shapeslist.get(Shapeslist.size() - 1));
-		Shapeslist.remove(Shapeslist.size() - 1);
-		return new FileBuilder().jsonBuilder(Shapeslist);
+		Undone.add(ShapesA.shapes.get(ShapesA.shapes.size() - 1));
+		ShapesA.removeShape(ShapesA.shapes.size() - 1);
+		return new FileBuilder().jsonBuilder(ShapesA.shapes);
 
 	}
 
 	@GetMapping("/Redo")
 	JSONObject redo() throws JSONException {
 
-		Shapeslist.add(Undone.get(Undone.size() - 1));
+		ShapesA.AddShape(Undone.get(Undone.size() - 1));
 		Undone.remove(Undone.size() - 1);
-		return new FileBuilder().jsonBuilder(Shapeslist);
+		return new FileBuilder().jsonBuilder(ShapesA.shapes);
 
 	}
 
@@ -70,9 +78,9 @@ public class drawingcompnents{
 	void save(@RequestParam String path, @RequestParam String name, @RequestParam String type) throws JSONException {
 		FileBuilder builder = new FileBuilder();
 
-		JSONObject saveJ = builder.jsonBuilder(Shapeslist);
+		JSONObject saveJ = builder.jsonBuilder(ShapesA.shapes);
 
-		String saveX = builder.xmlBuilder(Shapeslist);
+		String saveX = builder.xmlBuilder(ShapesA.shapes);
 
 
 		FileWriter file = null;
@@ -119,7 +127,7 @@ public class drawingcompnents{
 				if (type.equalsIgnoreCase("json"))
 				{
 					json = (JSONObject) jsonParser.parse(reader);
-					Shapeslist = mapper.create(json);
+					ShapesA.shapes = mapper.create(json);
 				}
 				else if (type.equalsIgnoreCase("xml"))
 				{
@@ -128,7 +136,7 @@ public class drawingcompnents{
 					DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 					Document document = documentBuilder.parse(file);
 					json = XML.toJSONObject(document.toString());
-					Shapeslist = mapper.create(json);
+					ShapesA.shapes = mapper.create(json);
 				}
 
 
@@ -147,7 +155,7 @@ public class drawingcompnents{
 			} catch (SAXException e) {
 				e.printStackTrace();
 			}
-			return Shapeslist;
+			return ShapesA.shapes;
 		}
 
 	}

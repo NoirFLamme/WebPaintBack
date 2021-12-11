@@ -1,42 +1,47 @@
 package com.example.springboot.Converter;
 
 import com.example.springboot.shapes.*;
+import com.example.springboot.shapes.Polygon;
+import com.example.springboot.shapes.Shape;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.awt.*;
 
 public class JSONtoShapeConv implements Converter<Shape, JSONObject>{
 
     public Shape create(JSONObject json) throws JSONException {
 
         Shape temp = null;
-        temp.type = json.getString("type");
-        temp.position.x = json.getInt("position.x");
-        temp.position.y = json.getInt("position.y");
-        temp.id = json.getInt("id");
-        temp.color = json.getString("color");
-        temp.isSelected = json.getBoolean("isSelected");
+        temp.setType(json.getString("type"));
+        Point point = new Point();
+        point.x = json.getInt("position.x");
+        point.y = json.getInt("position.y");
+        temp.setPosition(point);
+        temp.setId(json.getInt("id"));
+        temp.setColor(json.getString("color"));
 
-        switch (temp.type)
+        switch (temp.getType())
         {
             case "circle":
                 Circle circle = (Circle) temp;
-                ((Circle) temp).radius = json.getInt("radius");
+                ((Circle) temp).setRadius(json.getInt("radius"));
                 break;
             case "line":
                 Line line = (Line) temp;
-                ((Line) temp).x1 = json.getInt("x1");
-                ((Line) temp).x2 = json.getInt("x2");
-                ((Line) temp).y1 = json.getInt("y1");
-                ((Line) temp).y2 = json.getInt("y2");
+                ((Line) temp).setX1(json.getInt("x1"));
+                ((Line) temp).setX2(json.getInt("x2"));
+                ((Line) temp).setY2(json.getInt("y1"));
+                ((Line) temp).setY2(json.getInt("y2"));
                 break;
             case "ellipse":
                 Elipse elipse = (Elipse) temp;
-                ((Elipse) temp).radiusx = json.getInt("radiusx");
-                ((Elipse) temp).radiusy = json.getInt("radiusy");
+                ((Elipse) temp).setRadiusx(json.getInt("radiusx"));
+                ((Elipse) temp).setRadiusy(json.getInt("radiusy"));
                 break;
             case "polygon":
                 Polygon poly = (Polygon) temp;
-                ((Polygon) temp).points = json.getString("points");
+                ((Polygon) temp).setPoints(json.getString("points"));
                 break;
         }
 

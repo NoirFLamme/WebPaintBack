@@ -8,62 +8,57 @@ public class ShapeFactory {
 
         Shape sentobj = (Shape) sentobject;
 
-        if (sentobj == null)
+        if (sentobj != null)
         {
-            return null;
-        }
-        else if (sentobj.type.equalsIgnoreCase("circle"))
-        {
-            Circle circle = new Circle();
-            circle.type = sentobj.type;
-            circle.position = sentobj.position;
-            circle.radius = ((Circle) sentobj).radius;
-            circle.color = sentobj.color;
-            circle.id = sentobj.id;
-            circle.isSelected = sentobj.isSelected;
+            if (sentobj.getType().equalsIgnoreCase("circle"))
+            {
+                Circle circle = new Circle();
+                circle.setType(sentobj.getType());
+                circle.setPosition(sentobj.getPosition());
+                circle.setRadius(((Circle) sentobj).getRadius());
+                circle.setColor(sentobj.getColor());
+                circle.setId( sentobj.getId());
 
-            return circle;
-        }
-        else if (sentobj.type.equalsIgnoreCase("polygon"))
-        {
-            Polygon poly = new Polygon();
-            poly.type = sentobj.type;
-            poly.points = ((Polygon) sentobj).points;
-            poly.color = sentobj.color;
-            poly.position = sentobj.position;
-            poly.isSelected = sentobj.isSelected;
-            poly.id = sentobj.id;
+                return circle;
+            }
+            else if (sentobj.getType().equalsIgnoreCase("polygon"))
+            {
+                Polygon poly = new Polygon();
+                poly.setType(sentobj.getType());
+                poly.setPosition(sentobj.getPosition());
+                poly.setPoints(((Polygon) sentobj).getPoints());
+                poly.setColor(sentobj.getColor());
+                poly.setId( sentobj.getId());
 
-            return poly;
-        }
-        else if (sentobj.type.equalsIgnoreCase("elipse"))
-        {
-            Elipse elipse = new Elipse();
-            elipse.type = sentobj.type;
-            elipse.radiusx = ((Elipse) sentobj).radiusx;
-            elipse.radiusy = ((Elipse) sentobj).radiusy;
-            elipse.color = sentobj.color;
-            elipse.isSelected = sentobj.isSelected;
-            elipse.id = sentobj.id;
-            elipse.position = sentobj.position;
+                return poly;
+            }
+            else if (sentobj.getType().equalsIgnoreCase("elipse"))
+            {
+                Elipse elipse = new Elipse();
+                elipse.setType(sentobj.getType());
+                elipse.setPosition(sentobj.getPosition());
+                elipse.setRadiusx(((Elipse) sentobj).getRadiusx());
+                elipse.setRadiusy( ((Elipse) sentobj).getRadiusy());
+                elipse.setColor(sentobj.getColor());
+                elipse.setId( sentobj.getId());
+                return elipse;
+            }
+            else if (sentobj.getType().equalsIgnoreCase("line"))
+            {
+                Line line = new Line();
+                line.setType(sentobj.getType());
+                line.setPosition(sentobj.getPosition());
+                line.setX1(((Line) sentobj).getX1());;
+                line.setX2(((Line) sentobj).getX2());
+                line.setY1(((Line) sentobj).getY1());
+                line.setY2(((Line) sentobj).getY2());
+                line.setColor(sentobj.getColor());
+                line.setId( sentobj.getId());
 
-            return elipse;
+                return line;
+            }
         }
-        else if (sentobj.type.equalsIgnoreCase("line"))
-        {
-            Line line = new Line();
-            line.type = sentobj.type;
-            line.x1 = ((Line) sentobj).x1;
-            line.x2 = ((Line) sentobj).x2;
-            line.y1 = ((Line) sentobj).y1;
-            line.y2 = ((Line) sentobj).y2;
-            line.color = sentobj.color;
-            line.position = sentobj.position;
-            line.isSelected = sentobj.isSelected;
-            line.id = sentobj.id;
 
-            return line;
-        }
         return null;
     }
 }

@@ -17,34 +17,33 @@ public class JSONShapeConverter implements Converter<JSONObject, Shape>{
 
     public JSONObject create (Shape shape) throws JSONException {
         JSONObject json = new JSONObject();
-            json.put("id", shape.id);
-            json.put("type", shape.type);
-            json.put("color", shape.color);
-            json.put("position.x", shape.position.x);
-            json.put("position.y", shape.position.y);
-            json.put("isSelected", shape.isSelected);
+            json.put("id", shape.getId());
+            json.put("type", shape.getType());
+            json.put("color", shape.getColor());
+            json.put("position.x", shape.getPosition().x);
+            json.put("position.y", shape.getPosition().y);
 
-            switch (shape.type)
+            switch (shape.getType())
             {
                 case "circle":
                     Circle circle = (Circle) shape;
-                    json.put("radius", circle.radius);
+                    json.put("radius", circle.getRadius());
                     break;
                 case "line":
                     Line line = (Line) shape;
-                    json.put("x1", line.x1);
-                    json.put("x2", line.x2);
-                    json.put("y1", line.y1);
-                    json.put("y2", line.y2);
+                    json.put("x1", line.getX1());
+                    json.put("x2", line.getX2());
+                    json.put("y1", line.getY1());
+                    json.put("y2", line.getY2());
                     break;
                 case "ellipse":
                     Elipse elipse = (Elipse) shape;
-                    json.put("radiusx", elipse.radiusx);
-                    json.put("radiusy", elipse.radiusy);
+                    json.put("radiusx", elipse.getRadiusx());
+                    json.put("radiusy", elipse.getRadiusy());
                     break;
                 case "polygon":
                     Polygon poly = (Polygon) shape;
-                    json.put("radiusx", poly.points);
+                    json.put("radiusx", poly.getPoints());
                     break;
             }
 

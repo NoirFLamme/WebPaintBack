@@ -52,13 +52,6 @@ public abstract class Shape {
 		this.position = position;
 	}
 
-	public boolean isSelected() {
-		return isSelected;
-	}
-
-	public void setSelected(boolean selected) {
-		isSelected = selected;
-	}
 
 	abstract Shape select( ArrayList<Shape> Shapeslist, int i);
 	abstract void move( Shape selectedShape);
